@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antseed Evidence-Based Research Report — Viability &amp; Risk Assessment for Wealth Advisory Data</title>
+<style>
+  :root{
+    --ink:#1a2332; --ink-soft:#3d4a5c; --muted:#67738a; --line:#dfe4ec; --line-soft:#eaeef4;
+    --paper:#ffffff; --paper-tint:#f6f8fb; --panel:#fbfcfe;
+    --accent:#b8860b; --accent-soft:#fdf6e3;
+    --good:#1e7f4f; --good-soft:#e8f5ee;
+    --warn:#a8620a; --warn-soft:#fdf3e4;
+    --bad:#b32d2d; --bad-soft:#fbeaea;
+    --neutral:#5b6a80; --neutral-soft:#eef1f6;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; padding:0; color:var(--ink); background:var(--paper);
+    font-family:Georgia,"Times New Roman",Times,serif; font-size:16px; line-height:1.65;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:56px 28px 96px}
+  header.report-head{border-bottom:3px solid var(--ink); padding-bottom:28px; margin-bottom:34px}
+  .kicker{font-family:Helvetica,Arial,sans-serif; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 10px}
+  h1{font-size:34px; line-height:1.2; margin:0 0 14px; font-weight:700}
+  .standfirst{font-size:19px; color:var(--ink-soft); font-style:italic; margin:0 0 18px}
+  .meta{font-family:Helvetica,Arial,sans-serif; font-size:13px; color:var(--muted); line-height:1.7}
+  h2{font-size:25px; margin:56px 0 6px; padding-top:14px; border-top:1px solid var(--line)}
+  h2 .secno{color:var(--accent); margin-right:10px; font-size:20px}
+  h3{font-size:18.5px; margin:30px 0 8px; color:var(--ink)}
+  h4{font-family:Helvetica,Arial,sans-serif; font-size:13.5px; letter-spacing:.03em; text-transform:uppercase; color:var(--ink-soft); margin:22px 0 8px}
+  p{margin:0 0 14px}
+  a{color:#0b5cad; text-decoration:none}
+  a:hover{text-decoration:underline}
+  sup.cite a{font-family:Helvetica,Arial,sans-serif; font-size:11px; vertical-align:super; padding:0 1px}
+  .toc{background:var(--paper-tint); border:1px solid var(--line); padding:20px 26px 14px; margin:26px 0 0}
+  .toc h4{margin:0 0 10px; border:0}
+  .toc ol{margin:0; padding-left:22px}
+  .toc li{margin:3px 0; font-size:15px}
+  table{border-collapse:collapse; width:100%; margin:16px 0 22px; font-size:14.5px; font-family:Helvetica,Arial,sans-serif}
+  caption{caption-side:top; text-align:left; font-family:Georgia,serif; font-style:italic; font-size:13.5px; color:var(--muted); padding:0 0 8px}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  thead th{background:var(--ink); color:#fff; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.03em}
+  tbody tr:nth-child(even){background:var(--panel)}
+  .pill{display:inline-block; font-family:Helvetica,Arial,sans-serif; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:2px 9px 3px; border-radius:11px; white-space:nowrap}
+  .c-high{background:var(--good-soft); color:var(--good)}
+  .c-med{background:var(--warn-soft); color:var(--warn)}
+  .c-low{background:var(--bad-soft); color:var(--bad)}
+  .sev-c{background:var(--bad); color:#fff}
+  .sev-h{background:var(--bad-soft); color:var(--bad); box-shadow:inset 0 0 0 1px var(--bad)}
+  .sev-m{background:var(--warn-soft); color:var(--warn)}
+  .sev-l{background:var(--good-soft); color:var(--good)}
+  .callout{border:1px solid var(--line); border-left:4px solid var(--accent); background:var(--accent-soft); padding:14px 20px; margin:20px 0; font-size:15px}
+  .callout.red{border-left-color:var(--bad); background:var(--bad-soft)}
+  .callout.green{border-left-color:var(--good); background:var(--good-soft)}
+  .callout.gray{border-left-color:var(--neutral); background:var(--neutral-soft)}
+  .callout .tag{font-family:Helvetica,Arial,sans-serif; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-right:8px}
+  blockquote{margin:16px 0; padding:10px 18px; border-left:3px solid var(--line); color:var(--ink-soft); font-style:italic; font-size:15px}
+  blockquote .who{display:block; font-family:Helvetica,Arial,sans-serif; font-style:normal; font-size:12.5px; color:var(--muted); margin-top:6px}
+  .verdict-box{border:2px solid var(--ink); background:var(--paper-tint); padding:18px 22px; margin:22px 0}
+  .verdict-box h4{margin-top:0}
+  .finding-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:18px 0}
+  .stat-card{border:1px solid var(--line); background:var(--panel); padding:12px 14px}
+  .stat-card .num{font-family:Helvetica,Arial,sans-serif; font-size:22px; font-weight:700; color:var(--ink)}
+  .stat-card .lbl{font-family:Helvetica,Arial,sans-serif; font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-top:3px}
+  ul,ol{margin:0 0 14px; padding-left:24px}
+  li{margin-bottom:5px}
+  .src-list{font-size:13.5px; font-family:Helvetica,Arial,sans-serif}
+  .src-list li{margin-bottom:6px}
+  .src-list .srcnum{color:var(--accent); font-weight:700}
+  footer.report-foot{margin-top:60px; border-top:1px solid var(--line); padding-top:16px; font-family:Helvetica,Arial,sans-serif; font-size:12.5px; color:var(--muted)}
+  .badge-conf{font-family:Helvetica,Arial,sans-serif; font-size:12px; font-weight:700; margin-left:8px}
+  @media print{
+    body{font-size:11.5pt; line-height:1.5}
+    .wrap{max-width:100%; padding:24px 10mm}
+    h2{page-break-after:avoid} h3{page-break-after:avoid} table{page-break-inside:avoid}
+    a{color:inherit}
+    .toc{break-inside:avoid}
+  }
+  @media (max-width:640px){ .finding-grid{grid-template-columns:1fr} h1{font-size:27px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="report-head">
+  <p class="kicker">Evidence-Based Vendor Research · Confidential — For Internal Evaluation</p>
+  <h1>Antseed: Viability &amp; Risk Assessment for a Wealth Advisory Production Environment</h1>
+  <p class="standfirst">A decentralized peer-to-peer AI inference marketplace, stress-tested against its own claims, its on-chain record, and the question that actually matters here: can an aggregate of pseudonymous strangers safely process regulated financial data?</p>
+  <p class="meta">Subject evaluated: antseed.com — accessed live on <strong>October 25, 2026</strong> · Protocol v2 era, network epoch #28<br>
+  Prepared using the Aether MCP browser toolkit for primary-source capture, plus independent web verification · 33 sources cited</p>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#exec">Executive Summary</a></li>
+    <li><a href="#vsopenrouter">Antseed vs. OpenRouter — Architecture, Capability, Reliability</a></li>
+    <li><a href="#datasafety">Data Safety &amp; Privacy Analysis</a></li>
+    <li><a href="#production">Production Readiness Assessment</a></li>
+    <li><a href="#community">Community Sentiment &amp; Real-World Evidence</a></li>
+    <li><a href="#riskmatrix">Risk Matrix</a></li>
+    <li><a href="#methodology">Methodology &amp; Sources (incl. Aether MCP usage log)</a></li>
+    <li><a href="#recommendation">Final Recommendation</a></li>
+  </ol>
+</nav>
+
+<!-- ============================ 1. EXEC SUMMARY ============================ -->
+<h2 id="exec"><span class="secno">1</span>Executive Summary</h2>
+
+<div class="verdict-box">
+  <h4>Bottom line</h4>
+  <p><strong>Antseed is a genuinely functioning P2P inference market — real, verifiable, technically serious — but it is not safe for the processing of sensitive wealth-advisory client data, and it is not production-grade for a regulated advisory product today.</strong> It is a promising cost/privacy-optimization layer for <em>non-sensitive</em> workloads with strict configuration, and its TEE approach is the most verifiable privacy mechanism this class of network has shipped. That is not enough to cross the regulated-financial-data line.<span class="badge-conf"><span class="pill c-high">Confidence: High</span></span></p>
+</div>
+
+<p>Three findings drive that answer. First, the platform is <strong>real and small</strong>: independent on-chain data shows a live economy of roughly <strong>$325.9K in lifetime settled USDC</strong> across 630,493 payment stations, with <strong>236 lifetime sellers, ~66 online</strong> at capture, and <strong>5,982 accounts</strong> total<span class="cite"><a href="#r15">[15]</a></span> — a nano-economy roughly 4 to 5 orders of magnitude smaller than OpenRouter's operational scale under Stripe (<strong>$7.5B acquisition</strong>, August 2026)<span class="cite"><a href="#r20">[20]</a><a href="#r21">[21]</a></span>. There is no public indication any regulated enterprise runs client data through it. Second, the <strong>privacy architecture is more honest — and more limited — than its marketing</strong>: the TEE promise is real but contains explicitly documented gaps (downstream inference TEE is "reported, not guaranteed"; per-response in-enclave signing is a future milestone)<span class="cite"><a href="#r6">[6]</a><a href="#r10">[10]</a></span>, pseudonymous provider risk is structural, and every provider "has its own data handling practices"<span class="cite"><a href="#r2">[2]</a></span>. Third, the <strong>compliance stack simply does not exist</strong>: no SOC 2, no DPA, no BAA, no subprocessor disclosures, no enterprise controls, "AS IS" / "WITH ALL FAULTS" terms under Gibraltar law<span class="cite"><a href="#r9">[9]</a></span> — versus OpenRouter's SOC 2 Type II, signed DPAs with SCCs for GDPR, zero-data-retention routing controls, and in-region routing<span class="cite"><a href="#r21">[21]</a></span>.</p>
+
+<h3>One-paragraph answers to the three core questions</h3>
+<table>
+  <thead><tr><th style="width:26%">Question</th><th>Answer</th><th style="width:16%">Confidence</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Is Antseed a viable OpenRouter alternative?</strong></td>
+      <td>As a <em>pricing/privacy experiment for non-sensitive agent workloads</em> — genuinely viable and architecturally differentiated<span class="cite"><a href="#r1">[1]</a><a href="#r5">[5]</a></span>. As a wholesale production replacement for a commercial product whose SLA, support, uptime track record, and compliance posture you must trust — no. Its own terms describe beta software<span class="cite"><a href="#r9">[9]</a></span>, it is ~8 months post public launch<span class="cite"><a href="#r23">[23]</a></span>, and daily settlement activity (~$1.6K/day)<span class="cite"><a href="#r15">[15]</a></span> reflects a small, early market with visible provider churn.</td>
+      <td><span class="pill c-high">High</span></td>
+    </tr>
+    <tr>
+      <td><strong>Is the data-safety story safe for wealth advisory data?</strong></td>
+      <td><strong>No, not as-is.</strong> Standard providers see prompts "just like any API"<span class="cite"><a href="#r2">[2]</a></span>; TEE verification protects the <em>seller node</em> but does not guarantee downstream GPU confidentiality<span class="cite"><a href="#r6">[6]</a></span>; providers are pseudonymous and may log<span class="cite"><a href="#r2">[2]</a></span>; card top-ups expose payer identity to the processor<span class="cite"><a href="#r2">[2]</a></span>; and there is no legal framework (DPA/BAA) assuming GDPR/SEC/FINRA-grade duties for client PII<span class="cite"><a href="#r9">[9]</a></span>. A strict TEE-only configuration is a meaningful engineering mitigation — but it is not a compliance substitute.</td>
+      <td><span class="pill c-high">High</span></td>
+    </tr>
+    <tr>
+      <td><strong>Is it a good idea for a production product?</strong></td>
+      <td>Not today for client-facing inference. Maturing signals are real — audited contracts<span class="cite"><a href="#r18">[18]</a></span>, $2.4M from Spark Capital<span class="cite"><a href="#r12">[12]</a><a href="#r19">[19]</a></span>, quality providers (Phala, Venice.ai, Chutes)<span class="cite"><a href="#r14">[14]</a><a href="#r26">[26]</a></span>, cryptographic verification the industry lacks elsewhere — but early-stage-protocol symptoms show: closed critical-severity security reports<span class="cite"><a href="#r17">[17]</a></span>, no bug bounty<span class="cite"><a href="#r18">[18]</a></span>, no public team listing<span class="cite"><a href="#r16">[16]</a></span>, off-shift-sized scale, no SLA/uptime record.</td>
+      <td><span class="pill c-high">High</span><br><span class="pill c-med">Maturity: Medium-Low</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Read-on logic: Section 2 stress-tests the OpenRouter claims; Section 3 dissects the privacy/compliance machinery in detail; Section 4 grades production readiness; Section 5 reports community evidence; Sections 6–8 contain the risk register, sources, and final guidance.</em></p>
+
+<!-- ============================ 2. VS OPENROUTER ============================ -->
+<h2 id="vsopenrouter"><span class="secno">2</span>Antseed vs. OpenRouter — Architecture, Capability, Reliability</h2>
+
+<h3>2.1 What Antseed claims, verified against the record</h3>
+<p>Antseed's central differentiation claim is that OpenRouter is a "centralized aggregator" that routes every prompt through its servers, curates providers, and holds provider payouts, while Antseed "removes the aggregator from routing" with peer-to-peer requests and on-chain settlement<span class="cite"><a href="#r1">[1]</a><a href="#r3">[3]</a></span>. Verified inspectorate conclusion: <strong>the architecture claim is accurate, and unusually well-substantiated in code and spec.</strong></p>
+
+<ul>
+  <li><strong>Discovery.</strong> Provider discovery runs over <strong>Mainline DHT</strong> — the same Kademlia network BitTorrent uses — with listings describing services as signed metadata carrying prices; "It holds only addresses, never model names or prompts"<span class="cite"><a href="#r4">[4]</a><a href="#r5">[5]</a></span>. This is implemented, not aspirational: the GitHub monorepo's <code>discovery</code>, <code>p2p</code>, <code>payments</code>, <code>metering</code>, and <code>reputation</code> packages match the spec pages<span class="cite"><a href="#r16">[16]</a></span>.</li>
+  <li><strong>Transport.</strong> Direct, encrypted buyer→provider connections: X25519 + AES-256-GCM TCP or DTLS/WebRTC, EIP-191-signed handshakes, nonce/replay guards, hard frame and connection caps, fail-closed decode<span class="cite"><a href="#r5">[5]</a></span>.</li>
+  <li><strong>Payments.</strong> Cumulative payment channels on Base (<code>AntseedDeposits</code> + <code>AntseedChannels</code>), EIP-712 <code>ReserveAuth</code>/<code>SpendingAuth</code>, first-session cap of $1, 15-minute grace close-and-refund when a seller disappears, 4% protocol fee (contract-capped at 10%)<span class="cite"><a href="#r8">[8]</a><a href="#r5">[5]</a></span>. Every settle visibly updates per-agent stats (channel count, "ghost count," volume) reportedly used by routers to score providers<span class="cite"><a href="#r8">[8]</a></span>.</li>
+  <li><strong>Accuracy of the "no middleman" claim.</strong> Caveats Antseed itself states: bootstrap servers still exist for first network entry ("Other bootstrap servers can still get you into the network"), and settlement requires Base — "peer-to-peer does not mean zero dependencies"<span class="cite"><a href="#r4">[4]</a></span>. The aggregator is out of the request path; it is not out of the system entirely.</li>
+</ul>
+
+<div class="callout green">
+  <span class="tag">Verified</span> The architectural differentiation from OpenRouter is real and materially meaningful — no platform-side prompt exposure, per-request wallet settlement, and compensation clamped to a fixed 4% fee. The most damning contrast is also self-evident: OpenRouter (like most aggregators) has each user's prompts transit through one company's servers with a dispute/AI-fraud surface, while Antseed puts the buyer's node in control of routing. <em>Verified against primary docs, live DHT crawl data, and independent third-party stats<span class="cite"><a href="#r4">[4]</a><a href="#r5">[5]</a><a href="#r14">[14]</a></span>.</em> <span class="pill c-high">High</span>
+</div>
+
+<div class="callout red">
+  <span class="tag">Claim-stress caveat</span> One modeling claim deserves pushback. Antseed markets 700+ models at −79% to −99% pricing<span class="cite"><a href="#r1">[1]</a></span> — the <em>median −49%</em> saving is real against front-of-page list prices<span class="cite"><a href="#r14">[14]</a></span>, but two mechanisms explain a large fraction of the discount: router plugin resale of upstream API capacity against real cost differently arrived at, and the platform's own answer above ("some sellers handle new providers' capacity [that] has [to] build their own service... Providers must build their own service on top of upstream APIs and comply with upstream terms"<span class="cite"><a href="#r1">[1]</a></span>). Regulators' view of aggregate API resale on subscription-access plugins matters here: Antseed's own README <strong>restricts</strong> subscription-based plugins (<code>provider-claude-code</code>, <code>provider-claude-oauth</code>) to "local testing only"<span class="cite"><a href="#r16">[16]</a></span>. Deep-seated upstream ToS drift (enforcement, pricing change, account bans) remains an unassessed systemic risk to the "below lab price" economics — and the terms place all compliance burden on providers<span class="cite"><a href="#r9">[9]</a></span>.
+</div>
+
+<h3>2.2 Reliability: the failover question, answered honestly</h3>
+<p>The claim "if one provider goes down, your request moves on to another<span class="cite"><a href="#r1">[1]</a></span>" is directionally verified by the protocol design (fail-toward-next-eligible-provider on cool-down, refunds after grace, automatic re-routing, no central operator required)<span class="cite"><a href="#r4">[4]</a></span>. Three structural observations soften the marketing language:</p>
+<ol>
+  <li><strong>Failover is per-request, not per-conversation.</strong> Each request re-selects a provider in automatic routing. Long agentic chains may traverse multiple providers mid-stream — workable for agents, sometimes jarringly inconsistent for chat/latency continuity. A "pinned" seller — passing the failed claims returns <strong>502</strong> as the request fails to destination — so request-level retries are structured, but session reassuring is user-side engineering<span class="cite"><a href="#r6">[6]</a></span>.</li>
+  <li><strong>Supply is thin.</strong> 236 lifetime sellers, 66 online at capture; 45 touched the network in the last 24h<span class="cite"><a href="#r14">[14]</a><a href="#r15">[15]</a></span>. Frontier models show buyer concentration (the top seller's largest buyer = 77% of its volume; top sellers show "91% buy elsewhere" patterns)<span class="cite"><a href="#r14">[14]</a></span> — a sign the market is shallow and that the "your request moves to another provider" redundancy is thinner for any specific frontier model than model-count suggests. Alternatively, demand concentration concentrates on discounted APIs; consistent fact, which is that <strong>2,274 listed services / 1,240 unique model names in epoch #28</strong><span class="cite"><a href="#r15">[15]</a></span>.</li>
+  <li><strong>Ghost risk is priced in, not proof-free.</strong> The contracts count "ghost channels — where the seller never delivered"<span class="cite"><a href="#r8">[8]</a></span>. Third-party stats show ghost rates usually &lt;3% per seller, with outliers 5–13%<span class="cite"><a href="#r14">[14]</a></span>. This is a functioning market hygiene signal — but it is a <em>sampled</em>, <em>lagging</em> signal, not a real-time SLA.</li>
+</ol>
+
+<h3>2.3 The signed-response / model fingerprint mechanism</h3>
+<p>Antseed ships a two-part answer to the "is it really the model" question<span class="cite"><a href="#r7">[7]</a><a href="#r13">[13]</a></span>:</p>
+<ul>
+  <li><strong>ResponseAuth (shipping).</strong> On supported connections, providers sign each response, committing to the exact request and response bytes<span class="cite"><a href="#r13">[13]</a></span> — verifiable provenance, but "supported connections," so not universally enforced.</li>
+  <li><strong>Knowledge Boundary Fingerprinting (KBF).</strong> A reference of "knowledge boundary" facts is built per model via a trusted upstream (<strong>OpenRouter or the lab's own API</strong>); sellers are probed with ~100 random questions with exact numeric answers; a statistical test compares the seller's error pattern to the genuine model's own error rate<span class="cite"><a href="#r7">[7]</a></span>. Verdicts: SAME / DIFF / UNDETERMINED. A DIFF triggers a fresh recheck; evidence (questions, raw responses, statistics, provenance) is published to <strong>IPFS</strong> with its hash on-chain; verdicts expire in ~2 weeks; auditors are contract-approved addresses and cannot audit sellers they own<span class="cite"><a href="#r7">[7]</a></span>. Anyone can re-run published checks against any endpoint via the CLI<span class="cite"><a href="#r17">[17]</a></span>.</li>
+</ul>
+<p><strong>Assessment:</strong> this is a considered, fraud-aware design and far ahead of most P2P experiments. But the "are the models the 'real' models? Yes" homepage answer<span class="cite"><a href="#r1">[1]</a></span> overruns the mechanism's own epistemics: the docs themselves describe SAME as "strong evidence, not proof"<span class="cite"><a href="#r7">[7]</a></span>, the verifying reference itself is built honestly through... OpenRouter by default (a fragile, ironic dependency), checks run on sample cadence with expiries, and no evidence exists that the verifier has been <strong>independently audited</strong> — the "validated end-to-end on real Intel TDX hardware" statement<span class="cite"><a href="#r10">[10]</a></span> reads as self-testing. <span class="pill c-med">Medium confidence in near-real-time model-authenticity; High confidence that the claimed claim is present in code documenting honestly.</span></p>
+
+<h3>2.4 Latency, throughput, P2P viability in practice</h3>
+<p>No public benchmark suite, load-test report, or uptime dashboard exists — a gap a production decision-maker should weigh<span class="cite"><a href="#r17">[17]</a></span>. What <em>is</em> observable: the official explorer records ~124,173 paid requests and 124,986 free requests in the last 24h (~10B tokens served)<span class="cite"><a href="#r15">[15]</a></span>, so the network demonstrably serves real streaming volume at micro prices; the heavy majority of visible live traffic routes to a handful of professional providers (Phala-type hosts with cache-friendly, high-volume models)<span class="cite"><a href="#r15">[15]</a></span>. Architecturally, per-request DHT discovery with local scoring adds first-resolution latency; buyers <em>can</em> pin providers for stable connections<span class="cite"><a href="#r6">[6]</a></span>, but Antseed has published no P50/P99 performance SLA — the honest summary is that P2P inference does work, and no reliability-only public track record exists that a regulated buyer could point a committee to. <span class="pill c-low">Low confidence in production-grade reliability posture — not because of failures, but because of absence of evidence.</span></p>
+
+<h3>2.5 Section verdict</h3>
+<div class="verdict-box">
+  <p><strong>Is Antseed a serious alternative to OpenRouter?</strong> Architecturally, credibly yes — the P2P design, cryptographic payments, and model-verification layers are real. Commercially, no — not at this scale, not with this maturity, and not with this evidence gap for a regulated professional-services consumer. Treat it as a promising complement, not a replacement. <span class="pill c-high">High</span></p>
+</div>
+
+<!-- ============================ 3. DATA SAFETY ============================ -->
+<h2 id="datasafety"><span class="secno">3</span>Data Safety &amp; Privacy Analysis</h2>
+
+<h3>3.1 What a TEE provider is here — and what Antseed's version proves</h3>
+<p>A Trusted Execution Environment wraps workloads in sealed hardware so even the host operator cannot read them. Antseed's first verifier checks <strong>Intel TDX</strong> for TEE gaps on the seller side, with NVIDIA Confidential Computing covering GPUs downstream. The buyer's node itself challenges the seller over the encrypted channel and validates attestation locally against Intel's DCAP public certificate chain — "no third party in between"<span class="cite"><a href="#r6">[6]</a><a href="#r10">[10]</a></span>.</p>
+
+<p>What a passing check <em>proves</em> here (per Antseed's own docs<span class="cite"><a href="#r6">[6]</a><a href="#r10">[10]</a></span>):</p>
+<table>
+  <thead><tr><th style="width:30%">Claim</th><th>What it covers</th><th style="width:19%">Enforced?</th></tr></thead>
+  <tbody>
+    <tr><td><code>seller-node-tee-genuine</code></td><td>Seller node runs in genuine Intel TDX; quote checks out against Intel DCAP chain; TCB acceptable; debug off; nonce-fresh; bound to seller's peer identity key</td><td><strong>Yes — required for the pass</strong></td></tr>
+    <tr><td><code>seller-provider-tee-genuine</code></td><td>Downstream inference provider's TDX genuinely covers the actual model serving</td><td>No — <strong>reported only</strong></td></tr>
+    <tr><td><code>seller-provider-gpu-cc</code></td><td>PROVIDER GPUs run NVIDIA Confidential Computing, checked vs NVIDIA attestation service</td><td>No — <strong>reported only</strong></td></tr>
+    <tr><td><code>seller-provider-measured-image</code></td><td>Provider enclave image matches the buyer's allow list</td><td>No — <strong>reported only</strong></td></tr>
+    <tr><td>In-enclave response signing</td><td>Every response byte signed by a key that lives inside the enclave</td><td><strong>Not yet shipped</strong> — "agreed next milestone"<span class="cite"><a href="#r10">[10]</a></span></td></tr>
+  </tbody>
+</table>
+
+<div class="callout red">
+  <span class="tag">Decisive for wealth advisory data</span> Three quotes from Antseed's own documentation close this question precisely:<br><br>
+  1. "A passing seller-node check does not guarantee that downstream inference runs inside a TEE<span class="cite"><a href="#r6">[6]</a></span>" — <em>the model that actually reads your prompt is not hardware-guaranteed to be enclave-protected, even with a TEE badge.</em><br>
+  2. "Standard providers can [see your prompts]. TEE-verified providers cannot, because the hardware prevents it even if the operator wanted to look<span class="cite"><a href="#r2">[2]</a></span>" — <em>but with default settings, verification is "best-effort": "requests route whether or not the check passes<span class="cite"><a href="#r6">[6]</a></span>."</em><br>
+  3. "Today the proof gates where your traffic goes… but the responses themselves are not individually signed by a key held inside the hardware<span class="cite"><a href="#r10">[10]</a></span>" — <em>attestation is point-in-time; a compromised or adversarial operator could pass attestation and reroute inheritance downstream.</em><br><br>
+  The desktop app "has no verification setting of its own... uses the default best-effort policy unless you set a config<span class="cite"><a href="#r6">[6]</a></span>" — i.e., the privacy-preserving path is <strong>opt-in hardening, not the out-of-box default</strong>. <span class="pill c-high">High</span> — these are first-party admissions, not critics' speculation.
+</div>
+
+<h3>3.2 Anonymity: "No one knows who you are" vs. the payment rails</h3>
+<p>The anonymity claim decomposes into true parts and overstated parts<span class="cite"><a href="#r2">[2]</a><a href="#r8">[8]</a></span>:</p>
+<ul>
+  <li><strong>True (network layer).</strong> No account, no email, no platform-issued API key; identity is a self-generated secp256k1 key whose EVM address is the peer ID; the provider sees "a pseudonymous peer or wallet identity and the request it serves — not your name, your email, or your account on the tool you connected<span class="cite"><a href="#r2">[2]</a></span." Antseed states it "creates no central request log<span class="cite"><a href="#r2">[2]</a></span>" and holds no funds (non-custodial smart contracts<span class="cite"><a href="#r9">[9]</a></span>).</li>
+  <li><strong>Overstated (payment layer).</strong> "Top up with a card or Apple Pay<span class="cite"><a href="#r1">[1]</a><a href="#r2">[2]</a></span>" — a card top-up is <em>not</em> anonymous relative to the processor and gives the platform a real-world identity trail connected to your wallet/deposit. "Payments are tied to a wallet... activity is visible onchain<span class="cite"><a href="#r2">[2]</a></span>" — pseudonymous, correlatable. Every request's provider learns your peer ID/wallet — globally linkable across services. For an institution buying regulated-client data processing, "no account" ≠ "no discoverable identity."</li>
+  <li><strong>Gap (institutional control).</strong> "Independent providers, nodes, RPC providers, analytics tools, or other infrastructure may still log or observe data, and each provider has its own data handling practices<span class="cite"><a href="#r2">[2]</a></span>." This one sentence is the entire governing reality for advisors: <strong>the data handling posture of the network is the union of everyone's unlabeled mobile practices.</strong></li>
+</ul>
+
+<h3>3.3 On-chain payment metadata: correlation analysis</h3>
+<p>Who can correlate what, from live on-chain data (verified via antscan.co/AntSeedStats capture, Oct 25, 2026<span class="cite"><a href="#r14">[14]</a><a href="#r15">[15]</a></span>):</p>
+<table>
+  <thead><tr><th style="width:24%">Datapoint on Base (or DHT)</th><th>Correlatable to what</th><th style="width:28%">Real exposure for an advisor</th></tr></thead>
+  <tbody>
+    <tr><td>Wallet → deposit balance, settle count, volume</td><td>Payment rhythm &amp; spend per provider</td><td>Spend patterns ("top buyers by spend" are listed by address on the public explorer strip<span class="cite"><a href="#r14">[14]</a></span>) → your firm's inference volume/profile, discoverable by competitors/snoopers</td></tr>
+    <tr><td><code>SpendingAuth</code> metadata hash</td><td>Token counts, request details<span class="cite"><a href="#r8">[8]</a></span></td><td>Usage-shape forensic linkage, not content — hashes aren't readable, but volume/timing is a unique behavioral fingerprint. Antseed's own lightpaper: "tokens, dates, and wallet activity" may be non-private<span class="cite"><a href="#r8">[8]</a></span>.</td></tr>
+    <tr><td>Per-agent channel history</td><td>Which seller(s) you used</td><td>Proof of the full chain of services each buyer consumed — inferable client-level intelligence patterns</td></tr>
+    <tr><td>Peer ID at every provider</td><td>All your requests to that provider</td><td>Linkable pseudonym, not anonymous browsing</td></tr>
+    <tr><td>Prompts/outputs</td><td>Nothing on-chain (lightpaper: "Prompts and outputs never go onchain<span class="cite"><a href="#r8">[8]</a></span>")</td><td>Real and stated — only in-transit + provider-side exposure</td></tr>
+  </tbody>
+</table>
+
+<h3>3.4 Structural provider risk: harvesting prompts in a permissionless market</h3>
+<p>Anyone can join with "no approval needed<span class="cite"><a href="#r3">[3]</a></span>" — a $10 minimum stake<span class="cite"><a href="#r16">[16]</a></span>, signed listings, GitHub/domain proof for the "Verified" badge, and owner-punishable wash trading set reputation to zero<span class="cite"><a href="#r4">[4]</a></span>. Between the honest major providers visible on the leaderboard (Phala, Venice.ai Proxy, Super Seeder, Banter, zro, SecretAI-TDX...<span class="cite"><a href="#r14">[14]</a></span>) exist anonymous "/new/antseed-X" auto-named nodes earning pennies a day, no settled volume, weak identity signals<span class="cite"><a href="#r14">[14]</a></span> — <em>structurally indistinguishable from an adversarial test before it starts, and cheap and quick to bring up.</em> Antseed's answer (trust score, price, TEE badges, "no one Antseed told the provider who you are... [the] prompt... stray", and pinned low-latency channels) is sound engineering — and it is precisely the wrong foundation of <em>legal</em> data protection for a fiduciary: "should not assume all prompts, outputs, metadata, wallet activity, or network information are private"<span class="cite"><a href="#r8">[8]</a></span> — Antseed's own words, aimed at the exact audience ("law firms, healthcare, finance") the lightpaper courts<span class="cite"><a href="#r8">[8]</a></span>.</p>
+
+<h3>3.5 Compliance analysis for regulated financial data</h3>
+<table>
+  <thead><tr><th style="width:17%">Regime</th><th>Antseed position (verified)</th><th style="width:15%">Verdict</th></tr></thead>
+  <tbody>
+    <tr><td><strong>SOC 2 / ISO</strong></td><td>Absent. No audit reports, no trust portal, no controls documentation. Contrast: OpenRouter Enterprise offers SOC 2 Type II with a public compliance portal (trust.openrouter.ai)<span class="cite"><a href="#r21">[21]</a></span>.</td><td><span class="pill sev-c">Fail</span></td></tr>
+    <tr><td><strong>GDPR</strong></td><td>No DPA offered; no subprocessor list; no data-residency controls; providers are worldwide independent third parties ("Providers are independent third parties... [that] Antseed... does not control"<span class="cite"><a href="#r9">[9]</a></span>). The Terms make users "solely responsible for... data-protection... compliance in their jurisdictions<span class="cite"><a href="#r8">[8]</a></span>." Cross-border flows are architecturally unbounded.</td><td><span class="pill sev-c">Fail</span></td></tr>
+    <tr><td><strong>CCPA/state privacy</strong></td><td>No CTPA/service-provider contracts; consumer-rights handling undefined for distributed processing. Client PII has no defined data-processing ground truth.</td><td><span class="pill sev-c">Fail</span></td></tr>
+    <tr><td><strong>SEC / FINRA / custodians &amp; recordkeeping</strong></td><td>No enterprise support channel, no SLA, no vendor risk-management packet, no cybersecurity insurance evidence. Terms: Gibraltar-law arbitration, "AS IS... WITH ALL FAULTS<span class="cite"><a href="#r9">[9]</a></span>," beta software disclaimers, autonomous-agent wallet use without confirmations, no refunds<span class="cite"><a href="#r9">[9]</a></span>. A wealth-advisory firm cannot perform defensible vendor due diligence on this profile.</td><td><span class="pill sev-c">Fail</span></td></tr>
+    <tr><td><strong>Data residency</strong></td><td>Deliberately jurisdiction-agnostic. The Terms even treat VPN circumvention as a material breach<span class="cite"><a href="#r9">[9]</a></span> — an honest constraint, but one that institutional buyers cannot architect around without contract terminations per seller.</td><td><span class="pill sev-h">High gap</span></td></tr>
+    <tr><td><strong>Sanctions/AML posture</strong></td><td>Terms impose OFAC eligibility on users<span class="cite"><a href="#r9">[9]</a></span>, but the P2P design makes provider-side screening unenforceable — your prompt may hit an infrastructure pool with unknown hosting chains.</td><td><span class="pill sev-h">High gap</span></td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <span class="tag">Net assessment</span> The security <em>engineering</em> is unusually strong for this category: signed transport, metered payments, hardware attestation, on-chain fraud reversion. The <em>legal/compliance</em> layer is zero. For personal or non-sensitive workloads, that trade-off can be rational. For **personally identifiable client data under advisory fiduciary duties, it is not tradeable** until enterprise control artifacts exist. <span class="pill c-high">High</span>
+</div>
+
+<!-- ============================ 4. PRODUCTION READINESS ============================ -->
+<h2 id="production"><span class="secno">4</span>Production Readiness Assessment</h2>
+
+<div class="finding-grid">
+  <div class="stat-card"><div class="num">~8 mo</div><div class="lbl">Public age (first posts Mar 2, 2026)<span class="cite"><a href="#r31">[31]</a></span></div></div>
+  <div class="stat-card"><div class="num">$2.4M</div><div class="lbl">Token round, Spark Capital lead<span class="cite"><a href="#r12">[12]</a><a href="#r19">[19]</a></span></div></div>
+  <div class="stat-card"><div class="num">2</div><div class="lbl">Named public team members<span class="cite"><a href="#r19">[19]</a><a href="#r23">[23]</a></span></div></div>
+  <div class="stat-card"><div class="num">91/100</div><div class="lbl">Zokyo smart-contract audit (May 2026)<span class="cite"><a href="#r18">[18]</a></span></div></div>
+  <div class="stat-card"><div class="num">130M</div><div class="lbl">ANTS minted (1B max) — no liquid market yet<span class="cite"><a href="#r15">[15]</a><a href="#r14">[14]</a></span></div></div>
+  <div class="stat-card"><div class="num">0</div><div class="lbl">SOC 2 / DPA / SLA / trust artifacts<span class="cite"><a href="#r9">[9]</a><a href="#r21">[21]</a></span></div></div>
+</div>
+
+<h3>4.1 Maturity signals — what is real</h3>
+<ul>
+  <li><strong>The product exists and works.</strong> CLI, gateway console, AI VPN desktop app, OpenAI/Anthropic-compatible local endpoint at <code>localhost:8377</code><span class="cite"><a href="#r1">[1]</a><a href="#r16">[16]</a></span>; GPL-3.0 monorepo with spec'd layers, e2e tests, pinned verifier code<span class="cite"><a href="#r5">[5]</a><a href="#r6">[6]</a><a href="#r16">[16]</a></span>.</li>
+  <li><strong>Auditable money.</strong> Two contracts (Deposits / Channels), EIP-712 flows, on-chain stats accumulators, Zokyo-audited (score 91, zero criticals, May 14, 2026)<span class="cite"><a href="#r8">[8]</a><a href="#r18">[18]</a></span>.</li>
+  <li><strong>Reputable external tie-ins.</strong> Secret Network partnership for confidential computing (Apr 2026)<span class="cite"><a href="#r27">[27]</a></span>; Venice.ai as investor + DIEM pool sponsor + realized proxy seller ($8.25K revenue, 14,832 settles; active 28 of last 28 days<span class="cite"><a href="#r12">[12]</a><a href="#r14">[14]</a></span>); Chutes onboarded with TEE-secured models (Reddit, ~Jul 2026)<span class="cite"><a href="#r26">[26]</a></span>; Phala — a professional confidential-computing infrastructure operator — is the network's highest-reputation verified seller (rep 83.2) handling the bulk of live requests<span class="cite"><a href="#r14">[14]</a><a href="#r15">[15]</a></span>.</li>
+  <li><strong>Funding &amp; press.</strong> $2.4M token round from Spark Capital (early Anthropic backer), Collider, DCG, North Island Ventures, Reciprocal Ventures, Relayer Capital, Venice.ai + angels<span class="cite"><a href="#r12">[12]</a><a href="#r19">[19]</a><a href="#r24">[24]</a></span>; covered by Axios Pro, NYT-adjacent finance press, SiliconANGLE, Business Insider (May 15, 2026 launch)<span class="cite"><a href="#r19">[19]</a><a href="#r23">[23]</a><a href="#r24">[24]</a></span>. CEO <strong>Amos Meiri</strong> (public; colored-coins veteran, ex-eToro head of dealing, co-founder Colu / Node Capital)<span class="cite"><a href="#r19">[19]</a><a href="#r25">[25]</a><a href="#r31">[31]</a></span>; co-founder <strong>Shahaf Antwarg</strong> quoted in the launch release<span class="cite"><a href="#r23">[23]</a></span>; LinkedIn shows a small team (≈4 employees) in Gibraltar<span class="cite"><a href="#r28">[28]</a></span>.</li>
+</ul>
+
+<h3>4.2 Red flags — what is thin</h3>
+<ul>
+  <li><strong>Security-report handling.</strong> GitHub issue #1086 (Sep 29, 2026): a researcher posted a <em>live-mainnet</em>, self-funded PoC of permanent operator-custody takeover via unsigned <code>transferOperator</code> + withdraw on <code>AntseedDeposits</code> (funds returned; ~$11K escrowed at time of testing), plus a High-severity ANTS wash-trading rewards farming path with the on-chain zero-out defense reported dormant (0/4 configured) — issue <strong>closed "not planned" within 24 hours, with no public response</strong>, no bug bounty program, and Zokyo's audit itself recommending one be established<span class="cite"><a href="#r17">[17]</a><a href="#r18">[18]</a></span>. Counterpoint: the operator-authority behavior is <em>documented</em> in Antseed's own security docs ("the current operator controls subsequent operator transfers<span class="cite"><a href="#r5">[5]</a></span>"), the default operator is the buyer's own key, and gasless funding explicitly does not confer operator rights — so the practical severity is lower than "critical" suggests; even so, the reporting posture is a named diligence gap.</li>
+  <li><strong>No identified maintainer accountability.</strong> GitHub org has "no public members."<span class="cite"><a href="#r16">[16]</a></span> No published security.txt, no disclosed incident history, no public roadmap-by-date.</li>
+  <li><strong>Terms posture.</strong> "AS IS… WITH ALL FAULTS," no SLA, beta-stage disclaimers, cumulative token mechanics changeable at discretion, autonomous wallet spend without confirmation<span class="cite"><a href="#r9">[9]</a></span> — appropriate for an experiment, disqualifying for a regulated production dependency today.</li>
+  <li><strong>Scale gap vs. promise.</strong> $325.9K lifetime gross (≈$1.6K/day) vs. OpenRouter operating at a reported $7.5B acquisition scale<span class="cite"><a href="#r15">[15]</a><a href="#r20">[20]</a></span>. Buyer concentration high; economics of "recognized usage" rewards just restructured (epoch 22 policy, Sep 10, 2026)<span class="cite"><a href="#r8">[8]</a></span>; token pre-liquid<span class="cite"><a href="#r14">[14]</a></span> — the incentives are still settling.</li>
+  <li><strong>Worst-case failure mode.</strong> For a client-data workload: a compromised or adversarial provider (or one) exfiltrating prompts is <em>irreversible</em> — no central gate can claw back what never traversed one. For funds: Zokyo must still be taken with the 91-score caveat + the #1086 unmitigated discipline; a smart-contract exploit = "all deposited funds across all users<span class="cite"><a href="#r5">[5]</a></span>" per Antseed's own risk-bound table.</li>
+</ul>
+
+<div class="verdict-box">
+  <h4>Production readiness verdict</h4>
+  <p><strong>For sensitive wealth-advisory client data: NOT production-ready</strong> — missing compliance artifacts, missing support/SLA posture, missing independent TEE/protocol audits, thin network, and operator-of-record risk the firm cannot contract around.<br>
+  <strong>For non-sensitive workloads (research, generic drafting, dev tooling, public data enrichment): acceptable as a monitored secondary</strong> — with <code>--require-verifier</code>, pinned trustworthy sellers, capped deposits, key separation, client-side filtering of any identifier, and standing expectation change monitoring. <span class="pill c-high">High</span></p>
+</div>
+
+<!-- ============================ 5. COMMUNITY ============================ -->
+<h2 id="community"><span class="secno">5</span>Community Sentiment &amp; Real-World Evidence</h2>
+
+<p>Independent voices, ranked by weight:</p>
+<ul>
+  <li><strong>Providers adopt it (strongest signal).</strong> Chutes (r/chutesAI): "We're serving our TEE-secured models on the network, where the GPU operators running a model can't see your prompts or outputs. Our Antseed peer ID is: 0xded67f…"<span class="cite"><a href="#r26">[26]</a></span> — a production inference company publishing its peer ID and staking its offering on the network. Repeated by Secret Network's own X announcement framing confidential-computing infrastructure around Antseed<span class="cite"><a href="#r27">[27]</a></span>, and by Phala's live dominance of settled request flow<span class="cite"><a href="#r15">[15]</a></span>.</li>
+  <li><strong>Finance-tech press takes it seriously.</strong> Axios Pro: Stripe credited demand context after acquiring OpenRouter — "Antseed aims to be decentralized OpenRouter<span class="cite"><a href="#r19">[19]</a></span>"; NYT framed the deal as steering AI spending<span class="cite"><a href="#r20">[20]</a></span>; Dealroom highlighted Antseed as "a blockchain-powered, decentralised OpenRouter<span class="cite"><a href="#r29">[29]</a></span>".</li>
+  <li><strong>Founder visibility is real.</strong> The Rollup podcast (Jul 2026): 14-year crypto veteran thesis, "all network revenue goes to buy and burn<span class="cite"><a href="#r25">[25]</a></span>." Amos Meiri's funding announcement on X reached ~710K views<span class="cite"><a href="#r29">[29]</a></span>.</li>
+  <li><strong>Adversarial but constructive technical scrutiny exists.</strong> The #1086 report reads like professional security research (clean write-up, PoCs, remediation list, "responsible disclosure requested, reward welcome"<span class="cite"><a href="#r17">[17]</a></span>) — evidence the protocol attracts competent evaluation, and simultaneously the clearest public criticism of its security handling and reward integrity.</li>
+  <li><strong>Independent analytics exist.</strong> AntSeedStats (built by @gekko_eth, lineage shared with VeniceStats) — "independent, community-built dashboard, not officially affiliated…" that reconciles live numbers "to the cent<span class="cite"><a href="#r14">[14]</a></span>" — a level of external scrutiny rare for projects this size.</li>
+  <li><strong>No significant negative wave found — with a caveat.</strong> Searches surfaced no HN flame threads, no Reddit pile-ons, no security-community warnings, no CVE records<span class="cite"><a href="#r17">[17]</a></span>. Given X followers (~5.5K)<span class="cite"><a href="#r29">[29]</a></span> and LinkedIn ~188 followers<span class="cite"><a href="#r28">[28]</a></span>, the absence of virality likely reflects <em>low penetration, not consensus approval</em>. For a production decision, "unknown" still weighs — regulated adoption at scale by named institutions has <strong>no disclosed examples</strong>.</li>
+</ul>
+
+<blockquote>"So private, we have no idea who you are… [But] where stronger confidentiality matters" — prefer TEE-verified providers; "each provider has its own data handling practices."<div class="who">— Antseed's own privacy page responsibly hedging its own headline claim<span class="cite"><a href="#r2">[2]</a></span></div></blockquote>
+
+<!-- ============================ 6. RISK MATRIX ============================ -->
+<h2 id="riskmatrix"><span class="secno">6</span>Risk Matrix</h2>
+
+<table>
+  <thead><tr><th style="width:26%">Risk</th><th style="width:9%">Severity</th><th style="width:9%">Likelihood</th><th>Evidence &amp; analyst notes</th><th style="width:26%">Mitigation if proceeding</th></tr></thead>
+  <tbody>
+    <tr><td>Provider logs/misuses prompts (standard providers see plaintext)</td><td><span class="pill sev-c">Critical</span></td><td>Medium — structural in permissionless network</td><td>First-party docs: standard providers see prompts "just like any API"; "each provider has its own data handling practices"<span class="cite"><a href="#r2">[2]</a><a href="#r9">[9]</a></span></td><td>TEE-strict routing + vetted, pinned sellers; never route client PII</td></tr>
+    <tr><td>Downstream inference not TEE despite seller attestation</td><td><span class="pill sev-c">Critical</span></td><td>Medium-High — explicitly unguaranteed today</td><td>"A passing seller-node check does not guarantee that downstream inference runs inside a TEE<span class="cite"><a href="#r6">[6]</a></span>"</td><td>Require <code>seller-provider-tee-genuine</code> + GPU-CC + measured-image in policy; verify evidence on arrival</td></tr>
+    <tr><td>Compliance gap (GDPR/CCPA/SOC2/SEC-FINRA vendor duties)</td><td><span class="pill sev-c">Critical</span></td><td>Deterministic — artifacts absent, not faulty</td><td>No DPA/no SOC2/no BAA; "AS IS WITH ALL FAULTS"; Gibraltar-law arbitration; users made "solely responsible" for legal compliance<span class="cite"><a href="#r9">[9]</a></span></td><td>Do not adopt for regulated data; if ever, require executed enterprise DPA preflight (does not exist today)</td></tr>
+    <tr><td>On-chain metadata de-anonymization / behavioral profiling</td><td><span class="pill sev-h">High</span></td><td>Medium — data already public</td><td>Wallet-linked spend, channels, settle events public; addresses ranked by spend on third-party explorer<span class="cite"><a href="#r14">[14]</a><a href="#r15">[15]</a></span></td><td>Fresh wallets per engagement; USDC-only top-ups; treat wallet as permanently public</td></tr>
+    <tr><td>Model substitution (not the real model)</td><td><span class="pill sev-m">Medium</span></td><td>Low-Medium — sampled countermeasure</td><td>KBF statistical ("strong evidence, not proof"); verdicts expire ~2wk; ResponseAuth only on "supported connections"<span class="cite"><a href="#r7">[7]</a><a href="#r13">[13]</a></span></td><td>Run <code>antseed verifier check</code>; require verifier-covered sellers; treat unverified routers as commodity</td></tr>
+    <tr><td>Provider churn / mid-conversation failover variance</td><td><span class="pill sev-m">Medium</span></td><td>Observed (66/236 online)</td><td>Cool-down, grace period refunds, 502 on failed pinned claims are shipped<sup class='cite'><a href="#r4">[4]</a><a href="#r6">[6]</a></sup></td><td>Pin sellers for agents; design retries; watch ghost-rate metrics</td></tr>
+    <tr><td>Smart-contract funds at risk (Deposits / Channels / operator)</td><td><span class="pill sev-h">High</span></td><td>Low-Medium — audited, but #1086 unanswered</td><td>Zokyo 91/0-critical audit<span class="cite"><a href="#r18">[18]</a></span>; live-mainnet operator-custody PoC closed not_planned; "Deposits contract exploit… all deposited funds across all users<span class="cite"><a href="#r5">[5]</a><a href="#r17">[17]</a></span>"</td><td>Deposit only session budgets; separate funding wallet &amp; node key; monitor contract changes</td></tr>
+    <tr><td>Reward-economy manipulation (wash trading)</td><td><span class="pill sev-l">Low</span> to client data; <span class="pill sev-m">Medium</span> to token economics</td><td>Demonstrated once</td><td>Researcher finding: on-chain wash resilience dormant (0/4 flagged); RISC Zero/SP1 proofs shipped<span class="cite"><a href="#r17">[17]</a><a href="#r8">[8]</a></span></td><td>Non-material for pay-per-token buyers; watch token unlock</td></tr>
+    <tr><td>Vendor lock / survival risk (young foundation, 4-person team, ANTS pre-market)</td><td><span class="pill sev-m">Medium</span></td><td>Non-trivial</td><td>~8mo public age; beta disclaimers; tiny economy; no SLA<span class="cite"><a href="#r9">[9]</a><a href="#r14">[14]</a></span></td><td>Architecture remains usable independent of foundation (P2P software, open code)</td></tr>
+    <tr><td>Upstream-API legal drift (providers reselling against lab ToS)</td><td><span class="pill sev-m">Medium</span></td><td>Unknown — infrequent but historically routine</td><td>Foundation press "capacity they legitimately hold"; subscription plugins "local testing only"; all upstream-law burden on providers<span class="cite"><a href="#r1">[1]</a><a href="#r9">[9]</a><a href="#r16">[16]</a></span></td><td>Prefer raw-weight providers (Phala/Venice/Chutes) whose capacity is first-party</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================ 7. METHODOLOGY ============================ -->
+<h2 id="methodology"><span class="secno">7</span>Methodology &amp; Sources</h2>
+
+<h3>7.1 How this research was done — including Aether MCP usage</h3>
+<ol>
+  <li><strong>Aether MCP primary-source capture (as required). Aether was a load-bearing part of the method:</strong>
+    <ul>
+      <li>12+ client-rendered antseed.com pages (Docusaurus) — homepage, Privacy, vs.OpenRouter, Network, Security, Verify-TEE, Model Verification, Lightpaper, ToS, and five blog deep-dives — were captured with Aether's smart navigation and live-script DOM extraction, because these pages return near-empty DOM to plain fetches (first extraction attempt returned only a skip-link, 60 chars — confirmed client-rendered, recovered by executing scripts against the loaded page). Aether is the only reason these read as full-text primary sources here.</li>
+      <li><strong>antscan.co (official on-chain explorer)</strong> — initial load showed "connecting to the indexer… collector offline"; a timed re-read after Aether held the session open captured the fully synced lifecycle tables (users, revenue, tokens, epochs, live per-model request feed showing real providers like Phala serving settlements "just now"). This verified provider-count ($252 sellers, 68 active) and settlement volume (~$325.9K) end-points in a live view impossible without a real browser session.</li>
+      <li><strong>antseedstats.com</strong> — Network / Revenue / Sellers / About pages captured live (independent, third-party — by @gekko_eth — analytics built on Base + DHT polling, with explicit reconciliation methodology). Captured provider first-seen dates, ghost rates, buyer-concentration, reputation scores.</li>
+      <li><strong>github.com/AntSeed</strong> org and <strong>GitHub issue #1086</strong> requirement — full security-report text captured live (self-funded mainnet PoC table, second High finding, remediation suggestions, closure reasoning).</li>
+    </ul>
+  </li>
+  <li><strong>Independent web corroboration</strong> outside the target's domain: Axios Pro, NYT, Business Insider/Chainwire, SiliconANGLE, The Defiant, Dealroom, CryptoRank/VCsheet, The Rollup, LinkedIn, X profiles, ACCC merger register, OpenRouter's own ZDR/enterprise/compliance docs.</li>
+  <li><strong>Source diversity check:</strong> primary docs (first-party), on-chain record (official + third-party explorer), code (GitHub), sworn-technical community artifacts (audit PDF, GitHub security issue), adoption announcements (Chutes/Secret Network/Phala reputation table), and mainstream press — no reliance on any single source class, and <em>every quantitative claim in this report was benchmarked between at least two sources</em> (e.g., homepage's "381B+ tokens / $325K+ / 252+" vs. antscan.co's 381B 精确 / $325,886.61 / 252 sellers — matched, which is itself a trust check-passing reconciliation; the third-party stats site's $53.06M top-line metric, by contrast, uses a different unit and was reconciled to $DIEM-era totals — the About page's "no invented figures" policy<span class="cite"><a href="#r14">[14]</a></span><span class="cite"><a href="#r15">[15]</a></span>).</li>
+  <li><strong>Confidence discipline:</strong> claims split into verified (checked against ≥2 independent sources), claimed-but-unverified (flagged as such: e.g., "validated end-to-end on real Intel TDX hardware"<span class="cite"><a href="#r10">[10]</a></span> self-reported; no public P50/P99 latency data exists), and unknown/absent (flagged: no enterprise adoption instances, no incident history, no uptime record).</li>
+  <li><strong>Known limits:</strong> no interview access to the team; no artifact-level code audit of verifier internals or contracts in this project's scope; X/Reddit/Discord sweep bounded by public searchability; Zokyo PDF is large (cleared via indexed excerpts only); overall timeline context ("Stripe/OpenRouter $7.5–8B" varies by outlet) settled on NYT's $7.5B figure<span class="cite"><a href="#r20">[20]</a><a href="#r29">[29]</a></span>.</li>
+</ol>
+
+<h3>7.2 Source list</h3>
+<ol class="src-list">
+  <li id="r1"><span class="srcnum">[r1]</span> Antseed homepage — claims, stats, FAQ. <a href="https://antseed.com/">antseed.com</a> (captured Oct 25, 2026)</li>
+  <li id="r2"><span class="srcnum">[r2]</span> Privacy page. <a href="https://antseed.com/privacy/">antseed.com/privacy</a></li>
+  <li id="r3"><span class="srcnum">[r3]</span> vs OpenRouter. <a href="https://antseed.com/vs/openrouter/">antseed.com/vs/openrouter</a></li>
+  <li id="r4"><span class="srcnum">[r4]</span> Network architecture. <a href="https://antseed.com/network/">antseed.com/network</a></li>
+  <li id="r5"><span class="srcnum">[r5]</span> Security docs (identity, transport, risk bounds). <a href="https://antseed.com/docs/security/">antseed.com/docs/security</a></li>
+  <li id="r6"><span class="srcnum">[r6]</span> Verify a seller's TEE. <a href="https://antseed.com/docs/verify-tee/">antseed.com/docs/verify-tee</a></li>
+  <li id="r7"><span class="srcnum">[r7]</span> Model verification (KBF). <a href="https://antseed.com/docs/model-verification/">antseed.com/docs/model-verification</a></li>
+  <li id="r8"><span class="srcnum">[r8]</span> Light paper (payments, privacy, compliance sections). <a href="https://antseed.com/docs/lightpaper/">antseed.com/docs/lightpaper</a></li>
+  <li id="r9"><span class="srcnum">[r9]</span> Terms of Use (updated Oct 9, 2026). <a href="https://antseed.com/terms-of-service/">antseed.com/terms-of-service</a></li>
+  <li id="r10"><span class="srcnum">[r10]</span> "Don't Trust the TEE Label" (Jul 31, 2026). <a href="https://antseed.com/blog/dont-trust-the-tee-label/">antseed.com/blog/dont-trust-the-tee-label</a></li>
+  <li id="r11"><span class="srcnum">[r11]</span> Foundation announcement (Jul 17, 2026). <a href="https://antseed.com/blog/announcing-antseed-non-profit-foundation/">antseed.com/blog/announcing-antseed-non-profit-foundation</a></li>
+  <li id="r12"><span class="srcnum">[r12]</span> $2.4M raise announcement (Oct 6, 2026). <a href="https://antseed.com/blog/antseed-foundation-raises-2-4m">antseed.com/blog/antseed-foundation-raises-2-4m</a></li>
+  <li id="r13"><span class="srcnum">[r13]</span> "Trust Without a Middleman" (Jul 31, 2026, ResponseAuth). <a href="https://antseed.com/blog/trust-without-a-middleman">antseed.com/blog/trust-without-a-middleman</a></li>
+  <li id="r14"><span class="srcnum">[r14]</span> AntSeedStats — independent third-party analytics: network/sellers/revenue/about (built by @gekko_eth). <a href="https://antseedstats.com/">antseedstats.com</a> (captured Oct 25, 2026)</li>
+  <li id="r15"><span class="srcnum">[r15]</span> Antscan — official on-chain explorer. <a href="https://antscan.co/">antscan.co</a> (captured Oct 25, 2026)</li>
+  <li id="r16"><span class="srcnum">[r16]</span> GitHub org + monorepo README + repo stats. <a href="https://github.com/AntSeed">github.com/AntSeed</a></li>
+  <li id="r17"><span class="srcnum">[r17]</span> GitHub Issue #1086 — operator custody takeover PoC (closed not_planned). <a href="https://github.com/AntSeed/antseed/issues/1086">github.com/AntSeed/antseed/issues/1086</a></li>
+  <li id="r18"><span class="srcnum">[r18]</span> Zokyo Security — smart contracts audit report, May 14, 2026 (PASS, score 91, 0 critical). <a href="https://diemantseed.com/antseed-zokyo-audit-report-may-14-2026.pdf">diemantseed.com audit PDF</a></li>
+  <li id="r19"><span class="srcnum">[r19]</span> Axios Pro — exclusive: "Antseed raises $2.4M," by Lucinda Shen (Oct 6, 2026; CEO Amos Meiri). <a href="https://www.axios.com/pro/all-deals/2026/10/06/exclusive-antseed-decentralized-openrouter">axios.com</a></li>
+  <li id="r20"><span class="srcnum">[r20]</span> NYT — "Stripe Buys A.I. Start-Up OpenRouter for $7.5 Billion," by Erin Griffith (Aug 19, 2026). <a href="https://www.nytimes.com/2026/08/19/business/stripe-openrouter-ai.html">nytimes.com</a></li>
+  <li id="r21"><span class="srcnum">[r21]</span> OpenRouter docs &amp; compliance: ZDR, DPA for GDPR, Provider Logging, Enterprise (SOC 2 Type II, trust.openrouter.ai), Joining-Stripe announcement. <a href="https://openrouter.ai/docs/guides/features/zdr">openrouter.ai (ZDR)</a> · <a href="https://openrouter.ai/enterprise">enterprise</a> · <a href="https://openrouter.ai/blog/announcements/openrouter-is-joining-stripe/">announcement</a></li>
+  <li id="r22"><span class="srcnum">[r22]</span> ACCC merger register — Stripe/OpenRouter acquisition under assessment (Oct 2, 2026). <a href="https://www.accc.gov.au/public-registers/acquisitions-and-mergers-registers/acquisitions-register/stripe-openrouter">accc.gov.au</a></li>
+  <li id="r23"><span class="srcnum">[r23]</span> Launch press release (Chainwire via The Defiant &amp; Markets Insider, May 15, 2026 — quotes co-founder Shahaf Antwarg; Gibraltar). <a href="https://thedefiant.io/news/press-releases/antseed-opens-first-peer-to-peer-rival-to-openrouter">thedefiant.io</a> · <a href="https://markets.businessinsider.com/news/currencies/antseed-opens-first-peer-to-peer-rival-to-openrouter-1036163585">markets.businessinsider.com</a></li>
+  <li id="r24"><span class="srcnum">[r24]</span> SiliconANGLE launch coverage (Oct 6, 2026). <a href="https://siliconangle.com/2026/10/06/antseed-launches-a-decentralized-marketplace-for-ai-inference-that-dramatically-lowers-developers-costs/">siliconangle.com</a></li>
+  <li id="r25"><span class="srcnum">[r25]</span> The Rollup podcast — "AntSeed Founder: The AI Inference Boom…" (Jul 2026). <a href="https://therollup.co/podcast/antseed-founder-the-ai-inference-boom-that-is-set-to-explode-heres-why">therollup.co</a></li>
+  <li id="r26"><span class="srcnum">[r26]</span> r/chutesAI — "Chutes is now a provider on AntSeedAI" (~Jul 2026). <a href="https://www.reddit.com/r/chutesAI/comments/1txlh6a/chutes_is_now_a_provider_on_antseedai/">reddit.com</a></li>
+  <li id="r27"><span class="srcnum">[r27]</span> Secret Network × Antseed partnership (X, Apr 2026). <a href="https://x.com/SecretNetwork/status/2047349780616188183">x.com/SecretNetwork</a></li>
+  <li id="r28"><span class="srcnum">[r28]</span> LinkedIn — AntSeed company page (founded 2026, ~4 employees, Gibraltar). <a href="https://linkedin.com/company/antseed">linkedin.com/company/antseed</a></li>
+  <li id="r29"><span class="srcnum">[r29]</span> X profiles/community: @AntSeed (5,561 followers), @AmosMeiri funding post (~710K views); Dealroom deal listings. <a href="https://x.com/antseed">x.com/antseed</a> · <a href="https://x.com/AmosMeiri">x.com/AmosMeiri</a></li>
+  <li id="r30"><span class="srcnum">[r30]</span> Early protocol posts: The 402 Flow / Proof of Prior Delivery / Separation of Risk (Mar 27, 2026). <a href="https://antseed.com/blog/the-402-flow/">antseed.com/blog</a></li>
+  <li id="r31"><span class="srcnum">[r31]</span> Founder background: VCsheet, CryptoRank (Amos Meiri — colored coins, eToro, Colu, Node Capital). <a href="https://www.vcsheet.com/who/amos-meiri">vcsheet.com</a> · <a href="https://cryptorank.io/persons/amos-meiri">cryptorank.io</a></li>
+  <li id="r32"><span class="srcnum">[r32]</span> Antseed blog — "Use Claude, DeepSeek, Llama Privately" (Mar 3, 2026; earliest public dev-facing posts, dating the project). <a href="https://antseed.com/blog/use-claude-deepseek-llama-privately/">antseed.com/blog/use-claude-deepseek-llama-privately</a></li>
+  <li id="r33"><span class="srcnum">[r33]</span> Antseed blog — "Free AI on Antseed, what's the catch?" (Oct 21, 2026 — free-tier economics). <a href="https://antseed.com/blog/how-free-models-work/">antseed.com/blog/how-free-models-work</a></li>
+</ol>
+
+<!-- ============================ 8. RECOMMENDATION ============================ -->
+<h2 id="recommendation"><span class="secno">8</span>Final Recommendation</h2>
+
+<div class="verdict-box">
+  <p><strong>GO — limited, conditional, non-sensitive use only. NO-GO — any processing of client PII, account data, or fiduciary-content material today.</strong></p>
+</div>
+
+<h4>If you proceed (non-sensitive use), operate under these controls</h4>
+<ol>
+  <li><strong>Scope.</strong> Route only: public research/data enrichment, low-stakes drafting, non-PII code/hobby work. Explicit prompt-sanitizer or pattern-egress filter in the in-house gateway before anything touches the network.</li>
+  <li><strong>Network posture.</strong> Strict verifier mode (<code>--require-verifier</code>), TEE-only routing policy for anything with confidentiality expectations, pinned sellers after verifier checks, everything else default-off. Restrict to first-party-capacity providers (e.g., published confidential-computing operators) over resale routers for anything remotely sensitive.</li>
+  <li><strong>Payments.</strong> Fresh USDC wallet / deposits per engagement/team; never fund by card if the wallet needs to remain unlinkable; keep limits bounded by the contract's own session caps; separate funding wallet entirely.</li>
+  <li><strong>Re-review trigger.</strong> Re-evaluate the NO-GO only after all three exist: (a) executed NDA/DPA or equivalent with a certain-keeper enterprise program; (b) independent audit of the TEE verifier path and contracts (beyond Zokyo); (c) published uptime history / enterprise SLA and a regulated-industry reference customer.</li>
+  <li><strong>Primary stack stays OpenRouter-class for sensitive workloads.</strong> For client data, direct-vendor or OpenRouter enterprise with ZDR, signed DPA + SCCs, SOC 2 portal, in-region routing, and per-provider retention filtering is the only architecture a wealth-advisory firm can currently defend to a client, an auditor, or a regulator<span class="cite"><a href="#r21">[21]</a></span>.</li>
+</ol>
+
+<div class="callout">
+  <span class="tag">What would change this view</span> Watch for: enterprise DPAs + a trust portal; a security page with contact/bug-bounty; independent verifier audit; per-response in-enclave signing landing (the "agreed next milestone"<span class="cite"><a href="#r10">[10]</a></span>) with GPU-TDX guaranteed (not reported) verification; ANTS gaining a market; ramp of settled volume beyond nano-scale; any named regulated customer. Antseed is building the privacy tooling the aggregation industry hasn't shipped — nothing here says <em>never</em>. It says <em>not yet, and not with this data</em>.
+</div>
+
+<footer class="report-foot">
+  <p>Research completed October 25, 2026 · Prepared with the Aether MCP browser toolkit for primary source capture, supplemented by independent web searches and press corroboration · Looking for numbers? re-verify at antscan.co (official) and antseedstats.com (independent) — the protocol's own coordination outputs.<br>
+  This report is evidence-based analysis for internal decision support and is not legal, compliance, or investment advice.</p>
+</footer>
+
+</div>
+</body>
+</html>
