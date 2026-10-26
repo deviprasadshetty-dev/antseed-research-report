@@ -1,45 +1,43 @@
-# Reverse API Engineer — R&D Summary
+# Reverse API Engineer — Test Findings
 
-**What it is:** a Python CLI that turns a website into a typed API client by driving a real browser, recording network traffic to HAR, and letting an LLM generate the client.
+**Scope:** 7 targets across four difficulty classes, one configuration, same environment. Objective: validate behavior beyond the happy path.
 
-## How it works
+## Results
 
-1. You give it a goal and a starting URL.
-2. It spawns a configured agent SDK/model (Claude, OpenCode, Cursor, or Copilot).
-3. The agent drives a browser through an MCP server or CLI.
-4. The session is recorded to a HAR file.
-5. The model reads the HAR and writes `api_client.py` + `README.md`, synced to a local folder.
-
-It supports agent/manual/engineer/collector modes and a scriptable contract (`--json`, `--dry-run`, `--no-interactive`, exit codes 0/1/2).
-
-## Test result (7 targets, 2 verified working)
-
-| Target type | Outcome | What happened |
+| Target type | Outcome | Evidence |
 |---|---|---|
-| Public REST API | **PASS** | Working client in ~2 min |
-| SPA + public JSON API | **PASS** | Correct endpoint and query; live results verified |
-| JS-rendered, no API | **FAIL** | Drifted to an unrelated site; pagination crashed |
-| Social — bot + auth wall | **FAIL** | Correct endpoint discovered, replay returned HTTP 403 |
-| Heavy SPA — internal API | **PARTIAL** | Endpoints found, but live calls returned errors |
-| E-commerce — anti-bot | **FAIL** | Scraper built, returned 0 results, run timed out |
-| Community — auth + CAPTCHA | **ABORTED** | CAPTCHA solve timed out; model rate-limited |
+| Public REST API | **PASS** | Working client; 108 records returned on independent execution |
+| SPA + public JSON API | **PASS** | Correct endpoint and query; 548k hits searched live |
+| JS-rendered page, no API | **FAIL** | Generated a client for a different site; pagination crashed |
+| Social site — bot + auth wall | **FAIL** | Correct endpoint discovered, but replay returned HTTP 403 |
+| Heavy SPA — internal API | **PARTIAL** | Endpoints and parser correct; live calls returned errors |
+| E-commerce search — anti-bot | **FAIL** | Scraper built, returned 0 results; run timed out |
+| Community site — auth + CAPTCHA | **ABORTED** | CAPTCHA solve timed out; model rate-limited |
 
-## Where it fails
+**Verified working: 2 / 7.** Known spend: $4.08. Total wall time: ~41 minutes.
 
-- **False-positive success.** `status: "ok"` means "a client was generated", not "the client works". Three runs reported success with broken output.
-- **Target drift.** When a site has no API, the model can substitute a different site instead of scraping the rendered page.
-- **Bot detection.** Captured requests replayed outside the browser get 403 (Pinterest).
-- **Auth walls and CAPTCHAs.** Logged-out sessions capture only a sign-in shell; solve attempts time out.
-- **Stale client state.** Internal APIs (e.g. YouTube Innertube) rotate client versions and visitor data; capture-time constants decay.
-- **HTML structure drift.** Anti-bot pages or changed selectors yield zero rows.
-- **Secret leakage.** Captured session cookies are hardcoded into generated source; some sessions are invented.
-- **Tooling friction.** Browser-profile collisions, MCP file-access sandbox errors, missing HAR paths with non-default drivers, and buffered logs.
-- **Free-model rate limits.** Mid-run throttling causes retries, timeouts, and engine failures.
+## What held up
 
-## Bottom line
+- **Public JSON APIs.** Endpoint discovery, request reconstruction, and working client generation in ~2 minutes.
+- **API shape mapping.** Internal endpoints and payload structures were reconstructed correctly even where replay failed.
+- **Capture artifacts.** HAR files with 180–208 entries on hard targets, usable for offline analysis.
 
-Useful as a **reconnaissance and scaffolding tool** for open, unauthenticated JSON APIs. Not reliable for protected or stateful targets, and never a substitute for executing and validating the generated client. Known spend across the seven runs: **$4.08**, total wall time **~41 minutes**.
+## What failed
+
+- **Verification gap (highest impact).** `status: "ok"` confirms a client was generated, not that it works. Three runs reported success with broken output.
+- **Target drift.** When the requested site had no API, the model substituted an unrelated site instead of scraping the rendered page.
+- **Bot detection.** Captured requests replayed outside the browser returned 403 with bot flags in the response.
+- **Auth walls and CAPTCHA.** Logged-out sessions captured only a sign-in shell; challenge solving timed out.
+- **Stale client state.** Internal API constants (client version, visitor/session data) were frozen at capture time and rejected at runtime.
+- **HTML structure drift.** Anti-bot responses and changed selectors produced zero rows.
+- **Secret leakage.** Captured session cookies were hardcoded into generated source; some sessions were invented.
+- **Operational friction.** Browser-profile collisions between MCPs, sandbox file-access errors, missing HAR paths with non-default drivers, buffered logs.
+- **Free-tier rate limits.** Mid-run throttling caused retries, timeouts, and engine failures.
+
+## Assessment
+
+Reliable for open, unauthenticated JSON APIs. Not reliable where correctness depends on bot evasion, authentication, CAPTCHA, rotated client state, or HTML structure — and it does not self-verify those cases. Generated output should always be executed and validated before use.
 
 ---
 
-*Full analysis: [reverse-api-engineer.html](reverse-api-engineer.html)*
+*Full evidence: [reverse-api-engineer.html](reverse-api-engineer.html)*
