@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverse API Engineer — How It Works &amp; Where It Fails</title>
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#121923; --panel2:#0f151d; --border:#223041;
+    --text:#e6edf5; --muted:#93a4b8; --accent:#5eead4; --accent2:#818cf8;
+    --pass:#34d399; --fail:#f87171; --warn:#fbbf24; --abort:#a78bfa;
+    --code:#0a0e13;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 10% -10%,#12222b 0%,var(--bg) 55%) no-repeat,var(--bg);color:var(--text);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:48px 28px 80px}
+  header.hero{border:1px solid var(--border);border-radius:18px;padding:34px 34px 28px;background:linear-gradient(160deg,#131c27 0%,#0d131b 100%);position:relative;overflow:hidden}
+  header.hero:after{content:"";position:absolute;inset:auto -80px -120px auto;width:320px;height:320px;background:radial-gradient(circle,#5eead433,transparent 65%);pointer-events:none}
+  .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:var(--accent);font-weight:700}
+  h1{font-size:33px;line-height:1.15;margin:10px 0 8px;letter-spacing:-.02em}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--muted);max-width:800px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .chip{font-size:12px;color:var(--muted);border:1px solid var(--border);background:#0e151e;border-radius:999px;padding:5px 11px}
+  .chip b{color:var(--text);font-weight:600}
+  h2{font-size:22px;margin:42px 0 14px;letter-spacing:-.01em}
+  h2 .num{color:var(--accent2);font-variant-numeric:tabular-nums;margin-right:8px}
+  h3{font-size:15px;margin:0 0 8px}
+  p{margin:8px 0}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:860px){.g3,.g2{grid-template-columns:1fr}}
+  @media(max-width:520px){.wrap{padding:28px 16px 60px}h1{font-size:27px}}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .stat .k{font-size:25px;font-weight:700;letter-spacing:-.02em}
+  .stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:22px 24px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code);border:1px solid var(--border);border-radius:5px;padding:1px 5px;font-size:12.5px;color:#c7f9ee}
+  pre{background:var(--code);border:1px solid var(--border);border-radius:12px;padding:16px 18px;overflow:auto;font-size:12.5px;line-height:1.55;color:#c9d7e6;margin:10px 0}
+  pre code{background:none;border:none;padding:0}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:999px;border:1px solid;white-space:nowrap}
+  .b-pass{color:var(--pass);border-color:#34d39955;background:#34d39912}
+  .b-fail{color:var(--fail);border-color:#f8717155;background:#f8717112}
+  .b-part{color:var(--warn);border-color:#fbbf2455;background:#fbbf2412}
+  .b-abort{color:var(--abort);border-color:#a78bfa55;background:#a78bfa12}
+  .pipeline{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:10px 0 4px}
+  .step{flex:1 1 140px;min-width:140px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px 13px}
+  .step .n{font-size:10px;letter-spacing:.14em;color:var(--accent);font-weight:700}
+  .step .t{font-weight:600;font-size:13.5px;margin:3px 0 2px}
+  .step .d{font-size:12px;color:var(--muted)}
+  .arrow{display:flex;align-items:center;color:#3b4c60;font-size:18px}
+  @media(max-width:860px){.arrow{display:none}}
+  ul{margin:8px 0;padding-left:20px}
+  li{margin:6px 0}
+  .fail{border-left:3px solid var(--fail);background:#150f11;border-radius:0 12px 12px 0;padding:16px 18px;margin:12px 0}
+  .fail h4{margin:0 0 6px;font-size:14.5px}
+  .fail .why{font-size:12.5px;color:var(--muted);margin-top:8px}
+  .callout{border-left:3px solid var(--accent);background:#0e1a1c;border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:13.5px}
+  .callout.warn{border-color:var(--warn);background:#1b1608}
+  .callout.danger{border-color:var(--fail);background:#1c0f10}
+  .foot{margin-top:44px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);padding-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Technical Evaluation</div>
+  <h1>Reverse API Engineer <span>— how it works and where it fails</span></h1>
+  <p class="sub">A concise read of the operating model, followed by the concrete failure modes observed across seven targets of varying difficulty.</p>
+  <div class="meta">
+    <span class="chip">RAE <b>v0.14.0</b></span>
+    <span class="chip">OS <b>Windows</b></span>
+    <span class="chip">Python <b>3.12</b></span>
+    <span class="chip">Node <b>24</b></span>
+    <span class="chip">Browser <b>Chromium-based, headless</b></span>
+    <span class="chip">7 targets</span>
+    <span class="chip">Verified <b>2 / 7</b></span>
+  </div>
+</header>
+
+<h2><span class="num">01</span>How it works</h2>
+<div class="panel">
+  <p style="margin-top:0">RAE is a Python CLI that wraps an LLM agent around a real browser session. It runs in two phases separated by a HAR capture.</p>
+
+  <div class="pipeline">
+    <div class="step"><div class="n">STEP 1</div><div class="t">Prompt</div><div class="d">Goal + starting URL</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">STEP 2</div><div class="t">Agent session</div><div class="d">Configured SDK/model spawns an agent</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">STEP 3</div><div class="t">Browser capture</div><div class="d">Agent drives a browser via MCP/CLI</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">STEP 4</div><div class="t">HAR</div><div class="d">Requests + responses recorded</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">STEP 5</div><div class="t">Engineer</div><div class="d">Model reads HAR, writes client</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="n">STEP 6</div><div class="t">Artifacts</div><div class="d">Client + README, synced locally</div></div>
+  </div>
+
+  <div class="grid g3" style="margin-top:20px">
+    <div>
+      <h3>What it needs to succeed</h3>
+      <ul>
+        <li>A browser session that reaches content the model can see</li>
+        <li>Network traffic that contains the actual data endpoints</li>
+        <li>No bot check, login wall, or CAPTCHA on replay</li>
+        <li>Client state (cookies, tokens, client versions) that is still valid</li>
+      </ul>
+    </div>
+    <div>
+      <h3>How it chooses what to do</h3>
+      <ul>
+        <li>Agent mode is autonomous; manual mode lets you browse.</li>
+        <li>Browser control comes from a browser MCP or a browser CLI.</li>
+        <li>The configured SDK/model does all analysis and code generation.</li>
+        <li>There is no "bring your own agent/model" mode.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What it emits</h3>
+      <ul>
+        <li>A typed client file and a README per run</li>
+        <li>A HAR capture of the browser session</li>
+        <li>A JSON result with status, paths, usage, and error kind</li>
+        <li>Exit codes: 0 success, 1 runtime error, 2 misuse</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>The contract in one line:</b> RAE reports that a client was <i>generated</i>. It does not prove that the client <i>works</i>. That distinction is the source of most failures below.
+  </div>
+</div>
+
+<h2><span class="num">02</span>Where it fails</h2>
+
+<div class="panel" style="padding:8px 14px;margin-bottom:16px">
+<table>
+  <thead><tr><th>Failure mode</th><th>Trigger</th><th>Observed symptom</th><th>Seen in</th></tr></thead>
+  <tbody>
+    <tr><td><b>False-positive success</b></td><td>Internal check runs the script but never asserts results</td><td><code>status: "ok"</code> while the client returns errors or zero rows</td><td>YouTube, quotes, Amazon</td></tr>
+    <tr><td><b>Target drift</b></td><td>Site has no API; model substitutes another site</td><td>Client targets the wrong domain</td><td>Quotes sandbox</td></tr>
+    <tr><td><b>Bot fingerprinting</b></td><td>Replaying captured requests outside the browser</td><td>HTTP 403, bot flags in response metadata</td><td>Pinterest</td></tr>
+    <tr><td><b>Auth wall</b></td><td>Logged-out browser session</td><td>Signed-out shell only; no data endpoints</td><td>Pinterest, Reddit</td></tr>
+    <tr><td><b>CAPTCHA</b></td><td>Automated navigation triggers challenge</td><td>Detect/solve attempts time out; run stalls</td><td>Reddit</td></tr>
+    <tr><td><b>Stale client state</b></td><td>Hardcoded client version / missing visitor data</td><td>Live calls return error payloads</td><td>YouTube</td></tr>
+    <tr><td><b>Structure drift</b></td><td>HTML/selectors change or are blocked</td><td>Scraper runs but returns 0 rows</td><td>Amazon</td></tr>
+    <tr><td><b>Secret leakage</b></td><td>Generator inlines captured credentials</td><td>Live cookies hardcoded in source</td><td>Pinterest, Amazon</td></tr>
+    <tr><td><b>Rate limiting</b></td><td>Free-tier model throttled mid-run</td><td>Retries, then timeout / engine failure</td><td>Amazon, Reddit</td></tr>
+    <tr><td><b>Tooling collisions</b></td><td>Two browser MCPs share one profile; sandbox blocks paths</td><td>"Browser already in use", file access denied, <code>har_path: null</code></td><td>Multiple runs</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="fail">
+  <h4>1. It reports success without verifying the client works</h4>
+  <p>Two of the three "ok" runs produced clients that did not fulfil the task. YouTube's client executed without exceptions, so the run passed — but every API call returned an error object and zero results parsed.</p>
+  <pre><code>Guide response keys: ['error'] ...
+No results parsed (response may be empty or format changed).
+Log event response keys: ['error']</code></pre>
+  <div class="why"><b>Root cause:</b> the pass criterion is "the script ran", not "the script returned the requested data".</div>
+</div>
+
+<div class="fail">
+  <h4>2. It can silently switch to a different target</h4>
+  <p>Asked to reverse-engineer a JS-rendered quotes sandbox with no API, the model generated a client for an unrelated quote API instead. It ran successfully — against the wrong site. Pagination later crashed with a connection reset.</p>
+  <pre><code>=== Page 1 Quotes ===
+Retrieved 50 quote(s)          # wrong domain
+=== First 3 Pages Combined ===
+requests.exceptions.ConnectionError: Remote end closed connection without response</code></pre>
+  <div class="why"><b>Root cause:</b> when the requested site lacks a discoverable API, the model fills the gap with a plausible substitute instead of scraping the rendered page.</div>
+</div>
+
+<div class="fail">
+  <h4>3. Bot detection breaks replay</h4>
+  <p>On Pinterest, RAE correctly found the search endpoint and reconstructed the URL-encoded JSON payload and media schema. Replaying it outside the browser returned HTTP 403, with bot-detection flags in the response metadata. The session then timed out and exited 1.</p>
+  <pre><code>GET /resource/BaseSearchResource/...   -> 403 Forbidden
+metadata: is_bot / is_perf_metrics_bot  -> true
+session ended with ReadTimeout</code></pre>
+  <div class="why"><b>Root cause:</b> endpoint discovery succeeds, but the request cannot be replayed without the browser's fingerprint and live session.</div>
+</div>
+
+<div class="fail">
+  <h4>4. Auth walls leave nothing to discover</h4>
+  <p>On social and community sites, the logged-out browser rendered only a shell with a sign-in prompt. No pins, no posts, no media URLs. On one site the agent hit a CAPTCHA immediately and the solve attempt timed out.</p>
+  <div class="why"><b>Root cause:</b> no logged-in profile or session handoff; the capture contains only unauthenticated page chrome.</div>
+</div>
+
+<div class="fail">
+  <h4>5. Internal API state goes stale</h4>
+  <p>YouTube's Innertube endpoints were identified and documented correctly, but the hardcoded client version and missing session/visitor data made every call fail. This class of API rotates constants frequently, so a capture-time snapshot decays quickly.</p>
+  <div class="why"><b>Root cause:</b> the generator freezes client fingerprints at capture time instead of deriving them at runtime.</div>
+</div>
+
+<div class="fail">
+  <h4>6. HTML-based targets return nothing</h4>
+  <p>On Amazon search, RAE correctly recognised server-rendered HTML and wrote a BeautifulSoup scraper, but the run ended in a timeout and the generated client returned zero results. Hardcoded session cookies appeared fabricated.</p>
+  <pre><code>Searching for: mechanical keyboard
+Found 0 results:</code></pre>
+  <div class="why"><b>Root cause:</b> anti-bot blocking plus selector drift, with no fallback verification against the live page.</div>
+</div>
+
+<div class="fail">
+  <h4>7. Credentials leak into generated source</h4>
+  <p>The Pinterest client hardcoded live session cookies directly into the file. The Amazon client hardcoded invented session identifiers. Either pattern is unsafe to commit or share.</p>
+  <div class="why"><b>Root cause:</b> no secret scrubbing or environment-variable indirection in the code-generation templates.</div>
+</div>
+
+<div class="fail">
+  <h4>8. Local tooling adds non-deterministic failures</h4>
+  <ul style="margin-bottom:0">
+    <li>Two browser MCPs collided over one browser profile: <code>Browser is already in use</code>.</li>
+    <li>The MCP file sandbox rejected a temp path: <code>File access denied</code>.</li>
+    <li>When the capture used a non-default browser driver, <code>har_path</code> came back <code>null</code>.</li>
+    <li>Redirected stdout stayed empty until exit, preventing live monitoring.</li>
+    <li>The free-tier model was rate-limited mid-run, causing retries and timeouts.</li>
+  </ul>
+</div>
+
+<h2><span class="num">03</span>Results that anchor the analysis</h2>
+<div class="panel" style="padding:8px 14px">
+<table>
+  <thead><tr><th>#</th><th>Target type</th><th>Outcome</th><th>What happened</th><th>Time</th><th>Cost</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">1</td><td>Public REST API</td><td><span class="badge b-pass">PASS</span></td><td>Working client; 108 breeds returned</td><td>127s</td><td>$0.589</td></tr>
+    <tr><td class="mono">2</td><td>SPA + public JSON API</td><td><span class="badge b-pass">PASS</span></td><td>Working client; 548k hits searched</td><td>123s</td><td>$0.604</td></tr>
+    <tr><td class="mono">3</td><td>JS-rendered, no API</td><td><span class="badge b-fail">FAIL</span></td><td>Drifted to another site; pagination crashed</td><td>328s</td><td>$1.532</td></tr>
+    <tr><td class="mono">4</td><td>Social / bot wall</td><td><span class="badge b-fail">FAIL</span></td><td>Correct endpoint found; replay 403</td><td>613s</td><td>n/a</td></tr>
+    <tr><td class="mono">5</td><td>Heavy SPA / internal API</td><td><span class="badge b-part">PARTIAL</span></td><td>Endpoints found; calls returned errors</td><td>302s</td><td>$1.355</td></tr>
+    <tr><td class="mono">6</td><td>Anti-bot / HTML</td><td><span class="badge b-fail">FAIL</span></td><td>Scraper built; 0 results</td><td>610s</td><td>n/a</td></tr>
+    <tr><td class="mono">7</td><td>Auth + CAPTCHA</td><td><span class="badge b-abort">ABORTED</span></td><td>CAPTCHA, rate-limited, stopped</td><td>~6 min</td><td>n/a</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="grid g3" style="margin-top:16px">
+  <div class="stat"><div class="k">2 / 7</div><div class="l">Verified working</div></div>
+  <div class="stat"><div class="k">3 / 7</div><div class="l">"ok" but broken</div></div>
+  <div class="stat"><div class="k">$4.08</div><div class="l">Known model spend</div></div>
+</div>
+
+<h2><span class="num">04</span>Bottom line</h2>
+<div class="panel">
+  <p style="margin-top:0"><b>It works</b> when the target exposes an open, unauthenticated JSON API and the browser can see that traffic: it finds the endpoint, rebuilds the request, and emits a working client in about two minutes.</p>
+  <p><b>It fails</b> when correctness depends on anything beyond that: bot detection, login walls, CAPTCHAs, rotated client state, HTML structure, or the model's own judgement about which site it is looking at. In those cases it still produces an artifact and often still reports <code>status: "ok"</code>.</p>
+  <p class="muted" style="margin-bottom:0">Practical reading: a useful reconnaissance and scaffolding tool for public APIs; not a reliable generator for protected or stateful targets, and not a substitute for executing the generated client.</p>
+</div>
+
+<div class="foot">
+  Evaluation of Reverse API Engineer 0.14.0 · 7 targets · verified success 2/7 · model spend $4.08 · sanitized for sharing.
+</div>
+
+</div>
+</body>
+</html>
